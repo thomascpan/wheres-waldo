@@ -1,0 +1,14 @@
+<% provide(:title, "Where's Waldo") %>
+<h1>Welcome to Where's Waldo</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+  	<div class="instructions">Enter your name to begin!</div>
+		<%= form_for(@user) do |f| %>
+			<%= f.text_field :name, placeholder: "Name", class: "form-control" %>
+			<div class="field-info"><span>Leave blank to play as guest.</span></div>
+
+			<%= f.submit "Submit", class: "btn btn-primary" %>
+		<% end %>
+  </div>
+</div>
