@@ -58,9 +58,16 @@ input {
   top: 0;
   right: 0;
   display: block;
+  padding: 5px;
 }
 
 /* Boards */
+
+.board-thumbnail-container {
+  float: left;
+  width: 50%;
+  height: auto;
+}
 
 .board-thumbnail {
   width: 90%;
@@ -71,4 +78,10 @@ input {
 
 .board-thumbnail:first-child {
   margin-bottom: 15px;
+}
+
+/* Misc */
+
+.clear {
+  clear: both;
 }
