@@ -1,10 +1,25 @@
-<%= @board.name %>
+<% provide(:title, "Board #{@board.id}") %>
 
 <div>
-	<section class="col-md-10">
+	<section class="col-md-9">
 		<%= image_tag(@board.name+".jpg", class: "board") %>
 	</section>
-	<aside class="col-md-2">
-		hello
+	<aside class="col-md-3">
+		<div>
+			<h1>
+				<%= "Board #{@board.id}" %>
+			</h1>
+			<div class="instructions">
+				Find the characters listed below! Indentify the characters on the board by clicking on them. Find all characters to win. 
+			</div>
+		</div>
+		<div>
+			<% @characters.each do |character| %>
+				<div class="character-thumbnail-container">
+					<div class="character-name"><%= character.name.capitalize %></div>
+					<div><%= image_tag(character.name+".jpg", class: "character-thumbnail") %></div>
+				</div>
+			<% end %>
+		</div>
 	</aside>
 </div>
