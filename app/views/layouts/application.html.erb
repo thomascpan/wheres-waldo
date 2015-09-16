@@ -9,9 +9,11 @@
 <body>
 
 <!-- dislay only if user is "signed_in" -->
-	<div class="user-info">
-		#User Name
-	</div>
+	<% if logged_in? %>
+		<div class="user-info">
+			Current User: <%= current_user.name %>
+		</div>
+	<% end %>
 
 <div class="container">
 	<%= yield %>
