@@ -9,6 +9,6 @@
 User.delete_all
 
 4.times do |n| 
-	name = "board-#{n}"
+	name = "board-#{n+1}"
 	Board.create!(name: name)
 end

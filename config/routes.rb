@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+
   resources :users, only: [:new, :create]
   resources :boards, only: [:index, :show]
+  resources :scores, only: [:show]
   root 'users#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
