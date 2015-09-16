@@ -64,9 +64,11 @@ input {
 /* Boards */
 
 .board-thumbnail-container {
+  display: block;
   float: left;
   width: 50%;
-  height: auto;
+  height: 270px;
+  margin-bottom: 15px;
 }
 
 .board-thumbnail {
@@ -76,8 +78,9 @@ input {
   margin-left: 5%;
 }
 
-.board-thumbnail:first-child {
-  margin-bottom: 15px;
+.board {
+  width: 100%;
+  height: auto;
 }
 
 /* Misc */
