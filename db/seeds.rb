@@ -12,3 +12,9 @@ User.delete_all
 	name = "board-#{n+1}"
 	Board.create!(name: name)
 end
+
+# characters = ["waldo", "wenda", "wizard", "odlaw"]
+
+# characters.each do |character| 
+# 	Character.create!(name: character)
+# end
