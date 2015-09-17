@@ -2,7 +2,9 @@
 
 <div>
 	<section class="col-md-9">
-		<%= image_tag(@board.name+".jpg", class: "board") %>
+		<div class="board-container">
+			<%= image_tag(@board.name+".jpg", class: "board") %>
+		</div>
 	</section>
 	<aside class="col-md-3">
 		<div>

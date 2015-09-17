@@ -7,4 +7,12 @@ class BoardsController < ApplicationController
   	@board = Board.find(params[:id])
   	@characters = @board.characters.all
   end
+
+  def check_character
+  	@board = Board.find(params[:id])
+  	@characters = @board.characters.all
+
+  	render json: @board
+  	render json: @characters
+  end
 end
