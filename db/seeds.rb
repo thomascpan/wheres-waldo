@@ -20,22 +20,22 @@ end
 # end
 
 Character.create!(name: "waldo",
-									x_pos: 100,
-									y_pos: 100,
-									width: 10,
-									height: 10,
+									x_pos: 399,
+									y_pos: 211,
+									width: 24,
+									height: 39,
 									board_id: 1)
 
 Character.create!(name: "wenda",
-									x_pos: 150,
-									y_pos: 150,
-									width: 10,
-									height: 10,
+									x_pos: 583,
+									y_pos: 236,
+									width: 19,
+									height: 19,
 									board_id: 1)
 
 Character.create!(name: "wizard",
-									x_pos: 200,
-									y_pos: 200,
-									width: 10,
-									height: 10,
+									x_pos: 0,
+									y_pos: 193,
+									width: 20,
+									height: 32,
 									board_id: 1)

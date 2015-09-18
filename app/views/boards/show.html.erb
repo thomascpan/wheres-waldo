@@ -3,7 +3,8 @@
 <div>
 	<section class="col-md-9">
 		<div class="board-container">
-			<%= image_tag(@board.name+".jpg", class: "board") %>
+			<!-- Add @characters to img data attribute for javascript to access -->
+			<%= image_tag(@board.name+".jpg", class: "board", data: {characters: @characters}) %>
 		</div>
 	</section>
 	<aside class="col-md-3">
