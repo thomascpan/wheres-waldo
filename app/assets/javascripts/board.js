@@ -14,7 +14,7 @@ function getCharacterList() {
 
 // Click Handler
 function clickBoard() {
-	$('.board-container').click(function(event) {
+	$('.board-img-container').click(function(event) {
 		clickPositionX = event.offsetX;
 		clickPositionY = event.offsetY;
 		console.log([clickPositionX, clickPositionY]); /* Debuging Tool */
