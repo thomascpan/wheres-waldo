@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-
+  
+  root 'users#new'
   resources :users, only: [:new, :create]
   resources :boards, only: [:index, :show]
-  resources :scores, only: [:show]
-  root 'users#new'
+  resources :scores, only: [:show, :create]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

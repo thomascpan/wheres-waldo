@@ -4,14 +4,14 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
   	<div>
-  		<h2>Congratualations, your time was <%= @score.time %>.</h2>
+  		<h2>Congratualations, your time was <%= @score.seconds_in_hh_mm_ss %>.</h2>
   		<%= link_to "Play Again", boards_url %>
   	</div>
 
   	<ol>
   		<% @top_scores.each do |score| %>
   			<li>
-  				<%= "#{score.user.name}: #{score.time}" %>
+  				<%= "#{score.user.name}: #{score.seconds_in_hh_mm_ss}" %>
   			</li>
   		<% end %>
   	</ol>

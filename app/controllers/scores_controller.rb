@@ -1,8 +1,15 @@
 class ScoresController < ApplicationController
   def show
   	@score = Score.find(params[:id])
-  	@top_scores = Score.order(:time).first(10)
-  	# Need board id params
-  	# @top_scores = Score.where(board_id: params[:board_id]).order(:time).first(10)
+  	@board = @score.board
+  	@top_scores = Score.where(board_id: @board.id).order(:time).first(10)
   end
+
+  def create
+  	@board = Board.find(params[:id])
+  	@score = @board.scores.new(user_id: current_user.id, time: params[:time])
+  	if @score.save
+	  	render js: "window.location.pathname='#{score_path(@score)}'"
+	  end
+  end  
 end
