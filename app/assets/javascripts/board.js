@@ -1,10 +1,22 @@
+/* Prototype Modification */
+String.prototype.capitalize = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 /*   Variables   */
+var timeStart;
+var timeEnd;
 var characterList;
 var clickPositionX;
 var clickPositionY;
 var characterSelectDiv = $('#character-select');
 var characterOptionButtons = $('button.character-option');
 var characterSelectTemplate = "<div id='character-select'></div>";
+var characterSelection;
+var selectFeedbackDiv = $('#select-feedback');
+var selectFeedbackTemplate = "<div id='select-feedback'></div>";
+var errorMsg = "<div class='feedback-msg'><span>Sorry. Try again.</span><img src='/assets/close.png' class='close-btn'></div>"
+var successMsg = "<div class='feedback-msg'><span>You got it!</span><img src='/assets/close.png' class='close-btn'></div>"
 
 /*   Functions   */
 function getCharacterList() {
@@ -13,8 +25,11 @@ function getCharacterList() {
 }
 
 // Click Handler
-function clickBoard() {
+function boardListener() {
 	$('.board-img-container').click(function(event) {
+		if (selectFeedbackDiv.length == true) {
+			closeSelectFeedback();
+		}
 		clickPositionX = event.offsetX;
 		clickPositionY = event.offsetY;
 		console.log([clickPositionX, clickPositionY]); /* Debuging Tool */
@@ -27,29 +42,33 @@ function createCharacterSelect(x, y) {
 		$(".board-container").append(characterSelectTemplate);
 		characterSelectDiv = $('#character-select');		
 		addCharacterOptions();
-		if (y > 500 ) {
-			y -= characterSelectDiv.outerHeight();
-		}
 		characterSelectDiv.css( {
 			position: "absolute",
 			padding: "10px",
-			top: y, 
 			left: x, 
-			border: "2px solid red",
+			border: "2px solid black",
 			backgroundColor: "white"
+		});				
+		if (y > 500 ) {
+			console.log(y);
+			console.log(characterSelectDiv.outerHeight());
+			y -= characterSelectDiv.outerHeight();
+			console.log(y);
+		}
+		characterSelectDiv.css( {
+			top: y
 		});		
 	} else {
-		characterSelectDiv.remove();
-		characterSelectDiv = $('#character-select');	
+		closeCharacterSelect();
 	}
 }
 
 function addCharacterOptions() {
 	characterSelectDiv.empty();
 	characterList.forEach(function(element, index) {
-		// temp+=("<div id='" + element.name + "'>" + element.name + "</div>");
 		characterSelectDiv.append(createOptionTemplate(element.name));
 	});
+	buttonListener();
 	characterOptionButtons = $('button.character-option');
 	characterOptionButtons.css({
 		display: "block",
@@ -59,66 +78,135 @@ function addCharacterOptions() {
 }
 
 function createOptionTemplate(name) {
-	var template = "<button class='character-option'>" + name + "</button>"
+	var template = "<button class='character-option' value='" + name + "'>" + name.capitalize() + "</button>"
 	return template;
 }
 
+function buttonListener() {
+	$('.character-option').click(function(event) {
+		characterSelection = event.target.value;
+		checkCharacterSelection(characterSelection);
+		closeCharacterSelect();
+		checkWin();
+	})
+}
 
+function checkCharacterSelection(characterName) {
+	var characterObject = getCharacterObject(characterName);
+	characterObject = getCharacterObject(characterName); /* temp*/
+	if ( checkClickX(characterObject) && checkClickY(characterObject)) {
+		selectFeedback(clickPositionX, clickPositionY, true);
+		console.log('correct');
+		removeCharacter(characterName);
+		coverCharacter(characterObject);
+	} else {
+		selectFeedback(clickPositionX, clickPositionY, false);
+		console.log("incorrect");
+	}
+}
 
+function getCharacterObject(name) {
+	var object;
+	characterList.forEach(function(obj) {
+		if (obj.name === name) {
+			object = obj; 
+		}
+	});
+	return object; 
+} 
 
+function checkClickX(charObj) {
+	return between(clickPositionX, charObj.x_pos, charObj.x_pos + charObj.width);
+}
 
-// Test
+function checkClickY(charObj) {
+	return between(clickPositionY, charObj.y_pos, charObj.y_pos + charObj.height);
+}
 
-function createDivOverCharacters() {
-	characterList.forEach(function(element, index) {
-		$('.board-container').append("<div id='" + element.name + "-cover'></div>");
-		$("#" + element.name + "-cover").css( {
-			position: "absolute",
-			top: element.y_pos,
-			left: element.x_pos,
-			width: element.width,
-			height: element.height,
-			backgroundColor: "black"
-		});	
+function between(number, min, max) {
+	return ( number >= min && number <= max); 
+}
+
+function removeCharacter(characterName) {
+	// Removes character thumbnail
+	$("#" + characterName).hide();
+	characterList = $.grep(characterList, function(n) {
+		return (n.name != characterName);
 	});
 }
 
+function coverCharacter(charObj) {
+	$('.board-container').append("<div id='" + charObj.name + "-cover'></div>");
+	$("#" + charObj.name + "-cover").css( {
+		position: "absolute",
+		top: charObj.y_pos,
+		left: charObj.x_pos,
+		width: charObj.width,
+		height: charObj.height,
+		backgroundColor: "black",
+		opacity: ".5"
+	});
+}
 
-// Variables
-var errorMsg = "<div class='board-error-msg'>Sorry. Try again.</div>"
-var successMsg = "<div class='board-success-msg'>You got it!</div>"
+function closeCharacterSelect() {
+	characterSelectDiv.remove();
+	characterSelectDiv = $('#character-select');
+}
 
+function selectFeedback(x, y, result) {
+	$(".board-container").append(selectFeedbackTemplate);
+	selectFeedbackDiv = $('#select-feedback');
+	selectFeedbackDiv.empty();	
+	if (result) {
+		selectFeedbackDiv.append(successMsg);
+	} else {
+		selectFeedbackDiv.append(errorMsg);
+	}
+	selectFeedbackDiv.css( {
+		position: "absolute",
+		padding: "10px",
+		left: x, 
+		border: "2px solid black",
+		backgroundColor: "white"
+	});				
+	if (y > 500 ) {
+		console.log(y);
+		console.log(selectFeedbackDiv.outerHeight());
+		y -= selectFeedbackDiv.outerHeight();
+	}
+	selectFeedbackDiv.css( {
+		top: y
+	});
+	$('.close-btn').click(function() {
+		closeSelectFeedback();
+	})
+}
+
+var i = 0; 
+function closeSelectFeedback() {
+	selectFeedbackDiv.remove();
+	selectFeedbackDiv = $('#select-feedback');	
+}
 
 function checkWin() {
-	if (characterLeft === 0) {
+	if (characterList.length === 0) {
+		timeEnd = Date.now();
 		alert("Congratulations! You finished!");
 	}
 }
 
-function checkUserSelect(x, y, character) {
-	/* 	object with name value character
-			if x is within coordinate range and y is within coordinate range,
-				characterList remove object with name value character.
-				remove character-thumbnail too 
-			else
-				do nothing
-				console.log try again
-			end
-	*/ 
-}
-
 $(document).ready(function() {
+	timeStart = Date.now();
 	getCharacterList();
-	clickBoard();
+	boardListener();
 });
 
-// $().ready(function() {
-// 	alert(characters);
-// 	console.log(characters);
-// })
+function secondsToHms(d) {
+	d = Number(d);
+	var h = Math.floor(d / 3600);
+	var m = Math.floor(d % 3600 / 60);
+	var s = Math.floor(d % 3600 % 60);
+	return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s); 
+}
 
-
-// Ghetto way to keep track of time 
-// var a = Time.now();
-// var b = Time.now(); 
-// var seconds = (b-a)/1000;
+// Need to create new score. Need score param, user name, board param, and score(time). Redirect after win. 

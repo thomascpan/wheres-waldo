@@ -20,10 +20,10 @@
 		</div>
 		<div>
 			<% @characters.each do |character| %>
-				<div class="character-thumbnail-container">
+				<%= content_tag "div", class: "character-thumbnail-container", id: character.name do %>
 					<div class="character-name"><%= character.name.capitalize %></div>
 					<div><%= image_tag(character.name+".jpg", class: "character-thumbnail") %></div>
-				</div>
+				<% end %>
 			<% end %>
 		</div>
 	</aside>
