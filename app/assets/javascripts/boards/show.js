@@ -47,8 +47,8 @@ function createCharacterSelect(x, y) {
 			position: "absolute",
 			padding: "10px",
 			left: x, 
-			border: "2px solid black",
-			backgroundColor: "white"
+			border: "2px solid white",
+			backgroundColor: "#b0e0e6"
 		});				
 		if (y > 500 ) {
 			console.log(y);
@@ -167,8 +167,8 @@ function selectFeedback(x, y, result) {
 		position: "absolute",
 		padding: "10px",
 		left: x, 
-		border: "2px solid black",
-		backgroundColor: "white"
+		border: "2px solid white",
+		backgroundColor: "#b0e0e6"
 	});				
 	if (y > 500 ) {
 		console.log(y);
