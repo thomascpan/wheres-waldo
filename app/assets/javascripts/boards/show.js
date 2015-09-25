@@ -16,8 +16,8 @@ var characterSelectTemplate = "<div id='character-select'></div>";
 var characterSelection;
 var selectFeedbackDiv = $('#select-feedback');
 var selectFeedbackTemplate = "<div id='select-feedback'></div>";
-var errorMsg = "<div class='feedback-msg'><span>Sorry. Try again.</span><img src='/assets/close.png' class='close-btn'></div>";
-var successMsg = "<div class='feedback-msg'><span>You got it!</span><img src='/assets/close.png' class='close-btn'></div>";
+var errorMsg = "<div class='feedback-msg'><span>Sorry. Try again.</span><img src='/images/close.png' class='close-btn'></div>";
+var successMsg = "<div class='feedback-msg'><span>You got it!</span><img src='/images/close.png' class='close-btn'></div>";
 
 /*   Functions   */
 function getCharacterList() {
