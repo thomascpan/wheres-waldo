@@ -14,7 +14,6 @@ Preview: https://lit-fjord-4570.herokuapp.com/
 
 ###Gameplay
 
-```
 #### Signin ####
 Begin by entering your name. You may choose to leave your name blank to play as guest. 
 
@@ -29,4 +28,3 @@ Scan the board/image to find the characters listed on the right. To make a selec
 #### Score Page ####
 
 Top scores will be displayed on the page. Press "Play Again" to return to the "Boards Menu".
-```
